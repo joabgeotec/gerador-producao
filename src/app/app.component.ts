@@ -35,10 +35,10 @@ export class AppComponent implements OnInit {
   }
 
   getChangedValue(e: any)  {
-    console.log(moment(e).format('LL'))
+    //console.log(moment(e).format('LL'))
     this.daysSelected.push(moment(e).format('LL'));
     this.highlightDays(this.daysSelected, e);
-    console.dir(this.calendar);
+    //console.dir(this.calendar);
   }
 
   private highlightDays(days: string[], e: any) {
@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
 
       if (matchingDay) {
         // SE JÁ TIVER A CLASSE AVAILABLE, REMOVE A CLASSE AVAILABLE
-        console.dir(element);
         if (moment(e).format('LL') == element.ariaLabel &&
         element.classList[1] == 'available'){
           for (let i = 0; i < this.daysSelected.length; i++) {
@@ -77,7 +76,6 @@ export class AppComponent implements OnInit {
       '.mat-calendar-body-active'
     );
       dayElements.forEach(element => {
-        console.log(element)
         this.renderer.removeClass(element, 'mat-calendar-body-active');
         this.renderer.removeAttribute(element, 'title');
       });

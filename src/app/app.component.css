@@ -23,3 +23,6 @@ mat-toolbar{
 ::ng-deep .available .mat-calendar-body-cell-content{
     background-color: #7b1fa2;
 }
+table {
+  width: 100%;
+}

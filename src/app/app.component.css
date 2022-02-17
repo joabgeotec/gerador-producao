@@ -1,0 +1,25 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.center-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+mat-toolbar{
+  margin-bottom: 3vh;
+}
+.mid-width{
+  width: 70%;
+}
+.demo-inline-calendar-card {
+  width: 300px;
+}
+.example-events {
+  height: 200px;
+  border: 1px solid #555;
+  overflow: auto;
+}
+::ng-deep .available .mat-calendar-body-cell-content{
+    background-color: #7b1fa2;
+}

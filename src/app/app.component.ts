@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import * as XLSX from 'xlsx';
 import {AfterViewInit, Component, OnInit, EventEmitter, Output, Renderer2, ViewChild, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatCalendar} from '@angular/material/datepicker';
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   dataSource = new MatTableDataSource();
   hoursInput: any = {};
   dataToExport: any = {};
+  fileName= 'ExcelSheet.xlsx';
 
   @ViewChild('calendar')
   calendar: MatCalendar<moment.Moment>;
@@ -130,7 +132,22 @@ export class AppComponent implements OnInit {
 
       }
     });
+    //TODO: montar tabela excel escondida com o modelo pra exportar pra excel
     console.log(this.dataToExport);
+
+  }
+
+  exportExcel(): void {
+       /* table id is passed over here */
+       let element = document.getElementById('table-hours');
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
 
   }
 

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   daysSelected: string[] = new Array();
-  displayedColumns: string[] = ['id', 'day'];
+  displayedColumns: string[] = ['id', 'day', 'hours'];
   dataSource = new MatTableDataSource();
 
   @ViewChild('calendar')

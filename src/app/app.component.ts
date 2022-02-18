@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import {AfterViewInit, Component, OnInit, EventEmitter, Output, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, EventEmitter, Output, Renderer2, ViewChild, Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatCalendar} from '@angular/material/datepicker';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -123,14 +123,13 @@ export class AppComponent implements OnInit {
       if(element.className === "mat-row cdk-row ng-star-inserted"){
 
         this.dataToExport[index] = {
-          "id": element.cells[0].textContent,
+          "name": this.firstFormGroup.value.firstCtrl,
           "day": element.cells[1].textContent,
           "hours": element.getElementsByTagName("input")[0].value
         };
 
       }
     });
-
     console.log(this.dataToExport);
 
   }

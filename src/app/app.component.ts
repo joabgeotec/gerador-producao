@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   displayedColumns: string[] = ['id', 'day', 'hours'];
   dataSource = new MatTableDataSource();
   hoursInput: any = {};
+  dataToExport: any = {};
 
   @ViewChild('calendar')
   calendar: MatCalendar<moment.Moment>;
@@ -113,6 +114,25 @@ export class AppComponent implements OnInit {
       this.hoursInput[key] = this.hoursInput[key] + 1;
     }
     console.log(this.dataSource.data);
+  }
+
+  prepareToExport() {
+    const table = document.getElementById("table-hours") as HTMLTableElement;
+
+    Array.from(table.rows).forEach((element, index) => {
+      if(element.className === "mat-row cdk-row ng-star-inserted"){
+
+        this.dataToExport[index] = {
+          "id": element.cells[0].textContent,
+          "day": element.cells[1].textContent,
+          "hours": element.getElementsByTagName("input")[0].value
+        };
+
+      }
+    });
+
+    console.log(this.dataToExport);
+
   }
 
 }

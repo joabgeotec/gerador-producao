@@ -45,7 +45,7 @@
       <!-- <p>Preencha a quantidade de horas por dia de atendimento do assistido.</p> -->
 
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8"
-      matSortActive="day" matSortDirection="asc">
+      matSortActive="day" matSortDirection="asc" id="table-hours">
         <!-- Position Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>  </th>
@@ -82,7 +82,7 @@
       <br>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext>Próximo</button>
+        <button mat-button matStepperNext (click)="prepareToExport()">Próximo</button>
       </div>
     </mat-step>
     <mat-step>

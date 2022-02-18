@@ -91,8 +91,17 @@ export class AppComponent implements OnInit {
 
     let i = 0;
     this.daysSelected.forEach(element => {
-      dataSourceMounted.push({"id": i++, "day": moment(new Date(element)).format('DD/MM/YYYY')})
+      dataSourceMounted.push(
+        {
+          "id": i++,
+          "day": moment(new Date(element)).format('DD/MM/YYYY'),
+          "hours": 1
+        }
+      )
     });
+    for (const key in this.daysSelected) {
+      this.hoursInput[key] = 1;
+    }
 
     const dataSourceMatSort = new MatTableDataSource(dataSourceMounted);
     this.dataSource = dataSourceMatSort;
@@ -101,9 +110,9 @@ export class AppComponent implements OnInit {
 
   plusOne() {
     for (const key in this.hoursInput) {
-      console.log(this.hoursInput[key])
       this.hoursInput[key] = this.hoursInput[key] + 1;
     }
+    console.log(this.dataSource.data);
   }
 
 }

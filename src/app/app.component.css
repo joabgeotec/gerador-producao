@@ -41,3 +41,18 @@ input[type=number] {
 .input-number-cell{
   width: 50px;
 }
+.mat-mini-fab{
+  box-shadow: none !important;
+}
+.fab-plus-one-button {
+  position:absolute;
+  width: 24px;
+  height: 24px;
+  margin-top: -3px;
+  margin-left: 8px;
+}
+.fab-plus-one-icon {
+  font-size: 17px;
+  margin-top: -9px;
+  margin-left: 0px;
+}

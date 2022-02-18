@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
           this.removeActiveDate();
     }, 500);
+    this.createTableHtmlToExport();
   }
 
   getChangedValue(e: any)  {
@@ -134,13 +135,22 @@ export class AppComponent implements OnInit {
     });
     //TODO: montar tabela excel escondida com o modelo pra exportar pra excel
     console.log(this.dataToExport);
+  }
 
+  private createTableHtmlToExport() {
+    let tableHidden = document.createElement("table");
+    tableHidden.setAttribute("id","table-hours-to-export");
+
+    let thead = document.createElement("thead");
+    tableHidden.appendChild(thead);
+
+    console.log(tableHidden);
   }
 
   exportExcel(): void {
        /* table id is passed over here */
-       let element = document.getElementById('table-hours');
-       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+       let element = document.getElementById('table-hours-to-export');
+       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
        /* generate workbook and add the worksheet */
        const wb: XLSX.WorkBook = XLSX.utils.book_new();

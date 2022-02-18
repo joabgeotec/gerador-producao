@@ -56,3 +56,6 @@ input[type=number] {
   margin-top: -9px;
   margin-left: 0px;
 }
+#table-hours-to-export{
+  display: none;
+}

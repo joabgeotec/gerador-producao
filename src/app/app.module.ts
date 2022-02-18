@@ -18,7 +18,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -42,7 +42,8 @@ import {MatTableModule} from '@angular/material/table';
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -61,16 +61,17 @@
         <ng-container matColumnDef="hours">
           <th mat-header-cell *matHeaderCellDef>
             Horas
-            <button mat-mini-fab color="primary" class="fab-plus-one-button">
+            <button (click)="plusOne()" mat-mini-fab color="primary" class="fab-plus-one-button">
                 <mat-icon class="fab-plus-one-icon">plus_one</mat-icon>
             </button>
           </th>
           <!-- TODO: CRIAR BOTÃO QUE INSIRA 1 OU 2 HORAS EM TODOS -->
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element; let i = index">
             <mat-form-field class="input-number-cell">
               <input
                 matInput
-                type="number">
+                type="number"
+                [(ngModel)]="hoursInput[i]">
             </mat-form-field>
           </td>
         </ng-container>

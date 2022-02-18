@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   daysSelected: string[] = new Array();
   displayedColumns: string[] = ['id', 'day', 'hours'];
   dataSource = new MatTableDataSource();
+  hoursInput: any = {};
 
   @ViewChild('calendar')
   calendar: MatCalendar<moment.Moment>;
@@ -96,6 +97,13 @@ export class AppComponent implements OnInit {
     const dataSourceMatSort = new MatTableDataSource(dataSourceMounted);
     this.dataSource = dataSourceMatSort;
     this.dataSource.sort = this.sort;
+  }
+
+  plusOne() {
+    for (const key in this.hoursInput) {
+      console.log(this.hoursInput[key])
+      this.hoursInput[key] = this.hoursInput[key] + 1;
+    }
   }
 
 }

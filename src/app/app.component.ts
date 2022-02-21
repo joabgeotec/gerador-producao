@@ -144,7 +144,27 @@ export class AppComponent implements OnInit {
     let thead = document.createElement("thead");
     tableHidden.appendChild(thead);
 
-    console.log(tableHidden);
+    let trHead = document.createElement("tr");
+    thead.appendChild(trHead);
+
+    let th = document.createElement("th");
+    //LOOP PRA PEGAR OS TITULOS
+    trHead.appendChild(th);
+
+    let tbody = document.createElement("tbody");
+    tableHidden.appendChild(tbody);
+
+    //LOOP PARA PEGAR OS DADOS
+    let trdata = document.createElement("tr");
+    tbody.appendChild(trdata);
+
+    let td = document.createElement("td");
+    trdata.appendChild(td);
+    // FIM DO LOOP PARA PEGAR OS DADOS
+
+    setTimeout(() => {
+      console.log(tableHidden);
+    }, 1000);
   }
 
   exportExcel(): void {

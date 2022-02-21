@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   hoursInput: any = {};
   dataToExport: any = {};
   fileName= 'ExcelSheet.xlsx';
+  table: HTMLTableElement;
 
   @ViewChild('calendar')
   calendar: MatCalendar<moment.Moment>;
@@ -40,7 +41,6 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
           this.removeActiveDate();
     }, 500);
-    this.createTableHtmlToExport();
   }
 
   getChangedValue(e: any)  {
@@ -134,6 +134,7 @@ export class AppComponent implements OnInit {
       }
     });
     //TODO: montar tabela excel escondida com o modelo pra exportar pra excel
+    this.createTableHtmlToExport();
     console.log(this.dataToExport);
   }
 
@@ -147,9 +148,13 @@ export class AppComponent implements OnInit {
     let trHead = document.createElement("tr");
     thead.appendChild(trHead);
 
-    let th = document.createElement("th");
-    //LOOP PRA PEGAR OS TITULOS
-    trHead.appendChild(th);
+    //CABEÇALHO
+    let th1 = document.createElement("th");
+    th1.innerText = "PACIENTE"
+    trHead.appendChild(th1);
+    let th2 = document.createElement("th");
+    th2.innerText = "DATA"
+    trHead.appendChild(th2);
 
     let tbody = document.createElement("tbody");
     tableHidden.appendChild(tbody);
@@ -162,14 +167,15 @@ export class AppComponent implements OnInit {
     trdata.appendChild(td);
     // FIM DO LOOP PARA PEGAR OS DADOS
 
-    setTimeout(() => {
-      console.log(tableHidden);
-    }, 1000);
+    this.table = tableHidden;
+
+    console.log(this.table);
+
   }
 
   exportExcel(): void {
        /* table id is passed over here */
-       let element = document.getElementById('table-hours-to-export');
+       let element = this.table;
        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
        /* generate workbook and add the worksheet */

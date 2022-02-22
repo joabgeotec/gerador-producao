@@ -40,6 +40,14 @@ export class AppComponent implements OnInit {
     });
     setTimeout(() => {
           this.removeActiveDate();
+          const prev = document.querySelectorAll('.mat-calendar-previous-button')[0];
+          const next = document.querySelectorAll('.mat-calendar-next-button')[0];
+          prev.addEventListener('click', () => { // Previous Button
+            this.highlightDays(this.daysSelected, null);
+          });
+          next.addEventListener('click', () => { // Next Button
+            this.highlightDays(this.daysSelected, null);
+          });
     }, 500);
     //moment.locale('pt-br');
   }

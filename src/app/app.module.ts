@@ -19,7 +19,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
-
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,9 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [
+    //{provide: MAT_DATE_LOCALE, useValue: 'pt-br'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

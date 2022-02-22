@@ -41,22 +41,24 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
           this.removeActiveDate();
     }, 500);
+    //moment.locale('pt-br');
   }
 
   getChangedValue(e: any)  {
-    //console.log(moment(e).format('LL'))
     this.daysSelected.push(moment(e).format('LL'));
     this.highlightDays(this.daysSelected, e);
     //console.dir(this.calendar);
   }
 
   private highlightDays(days: string[], e: any) {
+    // TODO: COLOCAR UM EVENTO NAS SETAS DO CALENDÁRIO, PRA TODA VEZ QUE ELAS FOREM ACIONADAS
+    // ESSE MÉTODO SER CHAMADO. ISSO VAI CORRIGIR O PROBLEMA DE QUE AO PASSAR DE UM MES PARA O OUTRO,
+    // OS DIAS MARCADOS SE APAGUEM
     const dayElements = document.querySelectorAll(
       'mat-calendar .mat-calendar-table .mat-calendar-body-cell'
     );
     Array.from(dayElements).forEach((element) => {
       const matchingDay = days.find((d) => d === element.getAttribute('aria-label')) !== undefined;
-
       if (matchingDay) {
         // SE JÁ TIVER A CLASSE AVAILABLE, REMOVE A CLASSE AVAILABLE
         if (moment(e).format('LL') == element.ariaLabel &&
@@ -92,13 +94,12 @@ export class AppComponent implements OnInit {
 
   mountDataSource() {
     const dataSourceMounted = new Array();
-
     let i = 0;
     this.daysSelected.forEach(element => {
       dataSourceMounted.push(
         {
           "id": i++,
-          "day": moment(new Date(element)).format('DD/MM/YYYY'),
+          "day": moment(new Date(element)).format("MMM/DD"),
           "hours": 1
         }
       )
@@ -126,14 +127,13 @@ export class AppComponent implements OnInit {
       if(element.className === "mat-row cdk-row ng-star-inserted"){
 
         this.dataToExport[index] = {
-          "name": this.firstFormGroup.value.firstCtrl,
-          "day": element.cells[1].textContent,
-          "hours": element.getElementsByTagName("input")[0].value
+          "PACIENTE": this.firstFormGroup.value.firstCtrl,
+          "DATA": element.cells[1].textContent,
+          "HORAS": Number(element.getElementsByTagName("input")[0].value)
         };
 
       }
     });
-    //TODO: montar tabela excel escondida com o modelo pra exportar pra excel
     this.createTableHtmlToExport();
     console.log(this.dataToExport);
   }
@@ -160,11 +160,24 @@ export class AppComponent implements OnInit {
     tableHidden.appendChild(tbody);
 
     //LOOP PARA PEGAR OS DADOS
-    let trdata = document.createElement("tr");
-    tbody.appendChild(trdata);
+    for (const key in this.dataToExport) {
+      let row = this.dataToExport[key];
 
-    let td = document.createElement("td");
-    trdata.appendChild(td);
+      for (let i = 0; i < row.HORAS; i++) {
+
+        let trdata = document.createElement("tr");
+        tbody.appendChild(trdata);
+
+        for (const d in row) {
+          if(d == "PACIENTE" || d == "DATA") {
+            let td = document.createElement("td");
+            td.innerText = row[d];
+            trdata.appendChild(td);
+          }
+
+        }
+      }
+    }
     // FIM DO LOOP PARA PEGAR OS DADOS
 
     this.table = tableHidden;

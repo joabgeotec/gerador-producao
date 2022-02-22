@@ -59,9 +59,6 @@ export class AppComponent implements OnInit {
   }
 
   private highlightDays(days: string[], e: any) {
-    // TODO: COLOCAR UM EVENTO NAS SETAS DO CALENDÁRIO, PRA TODA VEZ QUE ELAS FOREM ACIONADAS
-    // ESSE MÉTODO SER CHAMADO. ISSO VAI CORRIGIR O PROBLEMA DE QUE AO PASSAR DE UM MES PARA O OUTRO,
-    // OS DIAS MARCADOS SE APAGUEM
     const dayElements = document.querySelectorAll(
       'mat-calendar .mat-calendar-table .mat-calendar-body-cell'
     );
@@ -103,6 +100,7 @@ export class AppComponent implements OnInit {
   mountDataSource() {
     const dataSourceMounted = new Array();
     let i = 0;
+    moment.locale('pt-br');
     this.daysSelected.forEach(element => {
       dataSourceMounted.push(
         {
@@ -119,6 +117,7 @@ export class AppComponent implements OnInit {
     const dataSourceMatSort = new MatTableDataSource(dataSourceMounted);
     this.dataSource = dataSourceMatSort;
     this.dataSource.sort = this.sort;
+    moment.locale('en');
   }
 
   plusOne() {

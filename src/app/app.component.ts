@@ -142,7 +142,6 @@ export class AppComponent implements OnInit {
       }
     });
     this.createTableHtmlToExport();
-    console.log(this.dataToExport);
   }
 
   private createTableHtmlToExport() {
@@ -188,8 +187,6 @@ export class AppComponent implements OnInit {
     // FIM DO LOOP PARA PEGAR OS DADOS
 
     this.table = tableHidden;
-
-    console.log(this.table);
 
   }
 

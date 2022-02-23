@@ -23,6 +23,9 @@ mat-toolbar{
 ::ng-deep .available .mat-calendar-body-cell-content{
     background-color: #7b1fa2;
 }
+::ng-deep .available-missing .mat-calendar-body-cell-content{
+  background-color: indianred;
+}
 table {
   width: 100%;
 }

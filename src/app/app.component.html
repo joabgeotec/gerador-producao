@@ -37,7 +37,9 @@
       </form>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Dias de atendimento do assistido</ng-template>
+        <ng-template matStepLabel>
+          <span (click)="openSnackBar()">Dias de atendimento do assistido</span>
+        </ng-template>
         <mat-card class="demo-inline-calendar-card">
           <mat-calendar
             #calendar

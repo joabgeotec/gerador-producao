@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatCalendar} from '@angular/material/datepicker';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,7 @@ export class AppComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   daysSelected: string[] = new Array();
+  missingDaysSelected: string[] = new Array();
   displayedColumns: string[] = ['id', 'day', 'hours'];
   dataSource = new MatTableDataSource();
   hoursInput: any = {};
@@ -29,7 +32,8 @@ export class AppComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _formBuilder: FormBuilder,
-              private renderer: Renderer2) {}
+              private renderer: Renderer2,
+              private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -61,8 +65,14 @@ export class AppComponent implements OnInit {
   onRightClick(e: any) {
     //previne abertura de menu do navegador;
     e.preventDefault();
-    
-    console.log("botão direito");
+
+    if (!e.path[1].ariaLabel){
+    } else {
+      let date = new Date(e.path[1].ariaLabel);
+      this.missingDaysSelected.push(moment(date).format('LL'));
+      this.highlightMissingDays(this.missingDaysSelected, date);
+    }
+    console.log(this.missingDaysSelected);
   }
 
   private highlightDays(days: string[], e: any) {
@@ -88,6 +98,35 @@ export class AppComponent implements OnInit {
 
       } else {
         this.renderer.removeClass(element, 'available');
+        this.renderer.removeClass(element, 'active');
+        this.renderer.removeAttribute(element, 'title');
+      }
+    });
+  }
+
+  private highlightMissingDays(days: string[], e: any) {
+    const dayElements = document.querySelectorAll(
+      'mat-calendar .mat-calendar-table .mat-calendar-body-cell'
+    );
+    Array.from(dayElements).forEach((element) => {
+      const matchingDay = days.find((d) => d === element.getAttribute('aria-label')) !== undefined;
+      if (matchingDay) {
+        // SE JÁ TIVER A CLASSE AVAILABLE, REMOVE A CLASSE AVAILABLE
+        if (moment(e).format('LL') == element.ariaLabel &&
+        element.classList[1] == 'available-missing'){
+          for (let i = 0; i < this.missingDaysSelected.length; i++) {
+            if(element.ariaLabel == this.missingDaysSelected[i]){
+              delete this.missingDaysSelected[i];
+              this.highlightMissingDays(this.missingDaysSelected, null);
+            }
+          }
+        } else {
+          this.renderer.addClass(element, 'available-missing');
+          this.renderer.setAttribute(element, 'title', 'Event Missing');
+        }
+
+      } else {
+        this.renderer.removeClass(element, 'available-missing');
         this.renderer.removeClass(element, 'active');
         this.renderer.removeAttribute(element, 'title');
       }
@@ -237,6 +276,11 @@ export class AppComponent implements OnInit {
        XLSX.writeFile(wb, this.fileName);
 
        // TODO: STEPPER RESET
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Botão-esquerdo para dia de atendimento. Botão-direito para dia de falta.', 'Fechar',
+    {duration: 6000});
   }
 
 }

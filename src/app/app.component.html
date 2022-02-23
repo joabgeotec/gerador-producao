@@ -41,6 +41,7 @@
         <mat-card class="demo-inline-calendar-card">
           <mat-calendar
             #calendar
+            (contextmenu)="onRightClick($event)"
             (selectedChange)="getChangedValue($event)">
           </mat-calendar>
         </mat-card>

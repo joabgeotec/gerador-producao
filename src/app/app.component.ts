@@ -58,6 +58,13 @@ export class AppComponent implements OnInit {
     //console.dir(this.calendar);
   }
 
+  onRightClick(e: any) {
+    //previne abertura de menu do navegador;
+    e.preventDefault();
+    
+    console.log("botão direito");
+  }
+
   private highlightDays(days: string[], e: any) {
     const dayElements = document.querySelectorAll(
       'mat-calendar .mat-calendar-table .mat-calendar-body-cell'
@@ -230,7 +237,6 @@ export class AppComponent implements OnInit {
        XLSX.writeFile(wb, this.fileName);
 
        // TODO: STEPPER RESET
-
   }
 
 }

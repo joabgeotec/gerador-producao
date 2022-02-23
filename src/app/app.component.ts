@@ -151,6 +151,32 @@ export class AppComponent implements OnInit {
     let thead = document.createElement("thead");
     tableHidden.appendChild(thead);
 
+    moment.locale('pt-br');
+    let trTitle = document.createElement('tr');
+    let thTitle = document.createElement('th');
+    let title = "PRODUÇÃO - " + moment().format("MMMM") + "/" + moment().subtract(1, "month").format("MMMM");
+    thTitle.innerText = title.toUpperCase();
+    thTitle.setAttribute("colspan", "2");
+    trTitle.appendChild(thTitle);
+    thead.appendChild(trTitle);
+    moment.locale('en');
+
+    let trTitle2 = document.createElement('tr');
+    let thTitle2 = document.createElement('th');
+    let nomeAt = this.secondFormGroup.value.secondCtrl;
+    thTitle2.innerText = nomeAt.toUpperCase();
+    thTitle2.setAttribute("colspan", "2");
+    trTitle2.appendChild(thTitle2);
+    thead.appendChild(trTitle2);
+
+    let trTitle3 = document.createElement('tr');
+    let thTitle3 = document.createElement('th');
+    trTitle3.appendChild(thTitle3);
+    let thTitle31 = document.createElement('th');
+    trTitle3.appendChild(thTitle31);
+    thead.appendChild(trTitle3);
+
+
     let trHead = document.createElement("tr");
     thead.appendChild(trHead);
 
@@ -187,6 +213,7 @@ export class AppComponent implements OnInit {
     // FIM DO LOOP PARA PEGAR OS DADOS
 
     this.table = tableHidden;
+    console.log(this.table);
 
   }
 
@@ -201,6 +228,8 @@ export class AppComponent implements OnInit {
 
        /* save to file */
        XLSX.writeFile(wb, this.fileName);
+
+       // TODO: STEPPER RESET
 
   }
 

@@ -26,7 +26,7 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Nome do Terapeuta</ng-template>
+        <ng-template matStepLabel>Nome do terapeuta</ng-template>
         <mat-form-field appearance="fill">
           <mat-label>Terapeuta</mat-label>
           <input matInput formControlName="secondCtrl" required>
@@ -38,13 +38,28 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>
-          <span (click)="openSnackBar()">Dias de atendimento do assistido</span>
+          <span>Dias de atendimento</span>
         </ng-template>
-        <mat-card class="demo-inline-calendar-card">
+        <mat-card class="inline-calendar-card">
           <mat-calendar
             #calendar
-            (contextmenu)="onRightClick($event)"
             (selectedChange)="getChangedValue($event)">
+          </mat-calendar>
+        </mat-card>
+        <br>
+        <div>
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext (click)="mountDataSource()">Próximo</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>
+          <span>Dias de falta</span>
+        </ng-template>
+        <mat-card class="inline-calendar-card">
+          <mat-calendar
+            #calendarTerapeuta
+            (selectedChange)="getChangedValueMissingDays($event)">
           </mat-calendar>
         </mat-card>
         <br>

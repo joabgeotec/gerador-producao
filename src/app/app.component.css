@@ -10,10 +10,10 @@ mat-toolbar{
   margin-bottom: 3vh;
 }
 .mid-width{
-  width: 70%;
+  width: 90%;
 }
-.demo-inline-calendar-card {
-  width: 300px;
+.inline-calendar-card {
+  width: 50%;
 }
 .example-events {
   height: 200px;

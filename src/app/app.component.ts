@@ -60,9 +60,10 @@ export class AppComponent implements OnInit {
     this.daysSelected.push(moment(e).format('LL'));
     this.highlightDays(this.daysSelected, e);
     //console.dir(this.calendar);
+    console.log(this.daysSelected);
   }
 
-  onRightClick(e: any) {
+  getChangedValueMissingDays(e: any) {
     //previne abertura de menu do navegador;
     e.preventDefault();
 
@@ -144,6 +145,7 @@ export class AppComponent implements OnInit {
   }
 
   mountDataSource() {
+    // A PARTIR DAQUI SERÁ 1 PARA OS DOIS CALENDARIOS, DE FALTA E DE PRESENÇA DO ASSISTIDO;
     const dataSourceMounted = new Array();
     let i = 0;
     moment.locale('pt-br');

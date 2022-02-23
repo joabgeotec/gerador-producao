@@ -64,15 +64,8 @@ export class AppComponent implements OnInit {
   }
 
   getChangedValueMissingDays(e: any) {
-    //previne abertura de menu do navegador;
-    e.preventDefault();
-
-    if (!e.path[1].ariaLabel){
-    } else {
-      let date = new Date(e.path[1].ariaLabel);
-      this.missingDaysSelected.push(moment(date).format('LL'));
-      this.highlightMissingDays(this.missingDaysSelected, date);
-    }
+    this.missingDaysSelected.push(moment(e).format('LL'));
+    this.highlightMissingDays(this.missingDaysSelected, e);
     console.log(this.missingDaysSelected);
   }
 
@@ -162,6 +155,12 @@ export class AppComponent implements OnInit {
       this.hoursInput[key] = 1;
     }
 
+    // TODO: AQUI VAI ENTRAR OS DIAS DE FALTA
+    // TALVEZ UM IF TRANSFORMANDO HORAS EM FALTA
+    // FAZER UMA FORMA DE UNIR OS DIAS FALTANTES EM dataSourceMounted
+    // E ONDE AS HORAS FOREM UTILIZADAS COMO NUMERO (EM UM LOOP POR EXEMPLO),
+    // COLOCAR UM IF CHECANDO SE ESSE REGISTRO É UM NUMERO
+
     const dataSourceMatSort = new MatTableDataSource(dataSourceMounted);
     this.dataSource = dataSourceMatSort;
     this.dataSource.sort = this.sort;
@@ -172,7 +171,6 @@ export class AppComponent implements OnInit {
     for (const key in this.hoursInput) {
       this.hoursInput[key] = this.hoursInput[key] + 1;
     }
-    console.log(this.dataSource.data);
   }
 
   prepareToExport() {
@@ -242,7 +240,7 @@ export class AppComponent implements OnInit {
     //LOOP PARA PEGAR OS DADOS
     for (const key in this.dataToExport) {
       let row = this.dataToExport[key];
-
+      // AS HORAS IRÃO REPETIR A LINHA
       for (let i = 0; i < row.HORAS; i++) {
 
         let trdata = document.createElement("tr");

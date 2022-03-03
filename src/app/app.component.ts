@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   dataSource = new MatTableDataSource();
   hoursInput: any = {};
   dataToExport: any = {};
-  fileName= 'ExcelSheet.xlsx';
+  fileName: string;
   table: HTMLTableElement;
 
   @ViewChild('calendar')
@@ -146,7 +146,7 @@ export class AppComponent implements OnInit {
       dataSourceMounted.push(
         {
           "id": i++,
-          "day": moment(new Date(element)).format("MMM/DD"),
+          "day": moment(new Date(element)).format("DD/MMM"),
           "hours": 1
         }
       )
@@ -210,7 +210,7 @@ export class AppComponent implements OnInit {
     let trTitle2 = document.createElement('tr');
     let thTitle2 = document.createElement('th');
     let nomeAt = this.secondFormGroup.value.secondCtrl;
-    thTitle2.innerText = nomeAt.toUpperCase();
+    thTitle2.innerText = "NOME: " + nomeAt.toUpperCase();
     thTitle2.setAttribute("colspan", "2");
     trTitle2.appendChild(thTitle2);
     thead.appendChild(trTitle2);
@@ -271,6 +271,9 @@ export class AppComponent implements OnInit {
        /* generate workbook and add the worksheet */
        const wb: XLSX.WorkBook = XLSX.utils.book_new();
        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       this.fileName = "PRODUCAO_" + this.secondFormGroup.value.secondCtrl
+       + "_" + this.firstFormGroup.value.firstCtrl + ".xlsx";
 
        /* save to file */
        XLSX.writeFile(wb, this.fileName);
